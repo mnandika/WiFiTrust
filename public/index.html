@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WiFiTrust | Office Access Manager</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="topbar">
+    <div class="brand">
+        <div class="logo">🥷</div>
+        <div>
+            <h2>WiFiTrust</h2>
+            <small>Office Network Access Manager</small>
+        </div>
+    </div>
+    <span class="secure-label">● Secure Access Portal</span>
+</header>
+
+<main>
+
+<!-- LOGIN PAGE -->
+<section id="loginView" class="login-layout">
+
+    <div class="hero">
+        <div class="bear">🔐</div>
+        <p class="eyebrow">WELCOME TO WIFITRUST</p>
+        <h1>Connect with<br><em>confidence.</em></h1>
+        <p class="hero-description">
+            A smarter way to manage employee accounts,
+            device requests and office Wi-Fi access.
+        </p>
+        <div class="hero-tag">🛜 Smart access · Trusted devices · Secure decisions</div>
+    </div>
+
+    <form id="loginForm" class="panel login-card">
+        <p class="eyebrow">ACCOUNT LOGIN</p>
+        <h2>Welcome back!</h2>
+        <p class="muted">Enter your office-issued login details.</p>
+
+        <label>
+            Office User ID
+            <input name="userId"
+                   placeholder="Enter your office User ID"
+                   required maxlength="40">
+        </label>
+
+        <label>
+            Password
+            <input name="password"
+                   type="password"
+                   placeholder="Enter your password"
+                   required>
+        </label>
+
+        <button class="primary">Log in to WiFiTrust →</button>
+
+        <p id="loginMessage" class="message"></p>
+
+        <p class="small-note">
+            Employee accounts are created only by the office administrator.
+            Unknown or inactive User IDs are denied.
+        </p>
+    </form>
+
+</section>
+
+<!-- DASHBOARD -->
+<section id="appView" class="hidden">
+
+    <div class="dashboard-heading">
+        <div>
+            <p class="eyebrow">YOUR WORKSPACE</p>
+            <h1 id="welcomeName">Dashboard</h1>
+            <p id="accountInfo" class="muted"></p>
+        </div>
+        <button id="logoutButton" class="outline">Log out ↗</button>
+    </div>
+
+    <!-- OWNER DASHBOARD -->
+    <section id="ownerPanel" class="hidden">
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <small>TOTAL EMPLOYEES</small>
+                <strong id="employeeCount">0</strong>
+                <span>Office accounts</span>
+            </div>
+
+            <div class="stat-card">
+                <small>TOTAL REQUESTS</small>
+                <strong id="requestCount">0</strong>
+                <span>Device requests</span>
+            </div>
+
+            <div class="stat-card">
+                <small>PENDING</small>
+                <strong id="pendingCount">0</strong>
+                <span>Waiting for review</span>
+            </div>
+
+            <div class="stat-card">
+                <small>ALLOWED</small>
+                <strong id="allowedCount">0</strong>
+                <span>Approved requests</span>
+            </div>
+        </div>
+
+        <div class="content-grid">
+
+            <!-- ADD EMPLOYEE -->
+            <form id="employeeForm" class="panel">
+                <p class="eyebrow">TEAM MANAGEMENT</p>
+                <h2>Create employee account</h2>
+                <p class="muted">
+                    Create an official account for an office employee.
+                </p>
+
+                <label>
+                    Office User ID
+                    <input name="userId"
+                           placeholder="Example: EMP1001"
+                           required maxlength="40">
+                </label>
+
+                <label>
+                    Employee full name
+                    <input name="name"
+                           placeholder="Enter employee name"
+                           required maxlength="100">
+                </label>
+
+                <label>
+                    Temporary password
+                    <input name="password"
+                           type="password"
+                           placeholder="Minimum 10 characters"
+                           minlength="10"
+                           required>
+                </label>
+
+                <button class="primary">＋ Create employee</button>
+                <p id="employeeMessage" class="message"></p>
+
+                <p class="small-note">
+                    Share the User ID and temporary password privately.
+                </p>
+            </form>
+
+            <!-- EMPLOYEE LIST -->
+            <div class="panel">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">OFFICE DIRECTORY</p>
+                        <h2>Employees</h2>
+                    </div>
+                    <button id="refreshEmployees" class="outline">
+                        ↻ Refresh
+                    </button>
+                </div>
+
+                <div id="employeeTable" class="table-wrap">
+                    Loading employees...
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- EMPLOYEE DASHBOARD -->
+    <section id="employeePanel" class="hidden">
+
+        <form id="requestForm" class="panel request-card">
+            <p class="eyebrow">NEW DEVICE REQUEST</p>
+            <h2>Request office Wi-Fi access</h2>
+            <p class="muted">
+                Enter the details of the laptop, phone or tablet
+                you want to use on the office network.
+            </p>
+
+            <div class="form-grid">
+
+                <label>
+                    Device name
+                    <input name="deviceName"
+                           placeholder="Example: My Laptop"
+                           required maxlength="100">
+                </label>
+
+                <label>
+                    Device type
+                    <select name="deviceType">
+                        <option>Laptop</option>
+                        <option>Mobile phone</option>
+                        <option>Tablet</option>
+                        <option>Other</option>
+                    </select>
+                </label>
+
+                <label class="full">
+                    Device MAC address
+                    <input name="macAddress"
+                           placeholder="AA:BB:CC:DD:EE:FF"
+                           required maxlength="17">
+                </label>
+
+            </div>
+
+            <button class="primary">Submit device request →</button>
+            <p id="requestMessage" class="message"></p>
+        </form>
+
+    </section>
+
+    <!-- REQUEST TABLE -->
+    <section class="panel table-panel">
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">ACCESS MANAGEMENT</p>
+                <h2 id="requestsTitle">Access requests</h2>
+            </div>
+
+            <button id="refreshRequests" class="outline">
+                ↻ Refresh
+            </button>
+        </div>
+
+        <div id="requestTable" class="table-wrap">
+            Loading requests...
+        </div>
+    </section>
+
+    <!-- HISTORY -->
+    <section class="panel table-panel">
+        <div>
+            <p class="eyebrow">AUDIT TRAIL</p>
+            <h2>Request history</h2>
+        </div>
+
+        <div id="historyTable" class="table-wrap">
+            Loading history...
+        </div>
+    </section>
+
+    <div class="notice">
+        <strong>Network integration notice:</strong>
+        WiFiTrust records access decisions in its database.
+        Physical Wi-Fi access control requires integration
+        with a compatible router or network access control system.
+    </div>
+
+</section>
+
+</main>
+
+<footer>
+    WiFiTrust · Office Network Access Management
+    <br>
+    Built with Java · JDBC · MySQL · HTML · CSS · JavaScript
+</footer>
+
+<script src="app.js"></script>
+
+</body>
+</html>
